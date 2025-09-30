@@ -22,7 +22,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       // Get a hold of the deployment URL from Vercel (fallback to localhost 3000)
-      baseUrl: process.env.NUXT_BASE_URL || 'http://localhost:3000'
+      baseUrl: process.env.NUXT_PUBLIC_BASE_URL || 'http://localhost:3000'
     }
   },
 })
