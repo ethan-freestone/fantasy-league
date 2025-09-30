@@ -26,12 +26,24 @@ export default defineNuxtConfig({
     }
   },
   nitro: {
-    experimental: {
-      tasks: true
-    },
-    scheduledTasks: {
-      // Run `test` task every minute
-      '* * * * *': ['test']
+    // TODO tasks do not yet support vercel, see https://github.com/nitrojs/nitro/issues/1974#issuecomment-2573129113
+    // experimental: {
+    //   tasks: true
+    // },
+    // scheduledTasks: {
+    //   // Run `test` task every minute
+    //   '* * * * *': ['test']
+    // },
+    vercel: {
+      config: {
+        crons: [
+          {
+            // FIXME would be preferable to handle this with tasks, migrate when possible
+            path: "/api/_test_chron",
+            schedule: "* * * * *",
+          }
+        ],
+      },
     }
-  }
+  },
 })
