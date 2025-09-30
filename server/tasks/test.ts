@@ -4,7 +4,7 @@ export default defineTask({
         description: "Testing task scheduler",
     },
     run({ payload: _payload, context: _context }) {
-        console.log("Running some behind-the-scenes task...");
+        console.warn("Running some behind-the-scenes task...");
         return { result: "Success" };
     },
 });
