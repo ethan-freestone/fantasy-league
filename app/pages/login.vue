@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import * as v from 'valibot'
-import type { FormSubmitEvent } from '@nuxt/ui'
+import type { AuthFormField, FormSubmitEvent } from '@nuxt/ui'
 
 const supabase = useSupabaseClient()
-const form = ref()
+const authForm = useTemplateRef('authForm');
 
 const config = useRuntimeConfig()
 
@@ -19,6 +19,22 @@ const signInWithOtp = async (email: string) => {
   if (error) console.log(error)
 }
 
+const fields: AuthFormField[] = [
+  {
+    name: 'email',
+    type: 'email',
+    label: 'Email',
+    placeholder: 'Enter your email',
+    required: true
+  },
+  {
+    name: 'password',
+    label: 'Password',
+    type: 'password',
+    placeholder: 'Enter your password',
+  }
+]
+
 const schema = v.object({
   email: v.pipe(v.string(), v.email('Invalid email')),
   password: v.pipe(v.string()),
@@ -26,20 +42,17 @@ const schema = v.object({
 
 type Schema = v.InferOutput<typeof schema>
 
-const state = ref({
-  email: '',
-  password: ''
-})
-
-const buttonLabel = computed(() => {
+const buttonLabel = computed((): string => {
   // Every time state.value.password changes, this calculation runs.
-  return state.value.password.length === 0 ? "Send magic link" : "Login (Still sends magic link right now)";
+  return (authForm.value?.state?.password?.length ?? 0) === 0 ? "Send magic link" : "Login (Still sends magic link right now)";
 });
 
-const isFormInvalid = computed(() => {
+const canSubmit = computed((): boolean => {
+  const isPristine = !authForm.value?.formRef?.dirty;
+  const isFormInvalid = (authForm.value?.formRef?.errors?.length ?? 0) > 0;
   // We use an optional chain (?) because 'form.value' is null until the component mounts.
   // If form.value exists, we check if its 'errors' array has any items.
-  return form.value?.errors.length > 0;
+  return isFormInvalid || isPristine;
 });
 
 const toast = useToast()
@@ -51,16 +64,21 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
 
 <template>
   <div class="h-screen flex items-center justify-center">
-    <UForm ref="form" :schema="schema" :state="state" class="space-y-4" @submit="onSubmit">
-      <UFormField label="Email" name="email">
-        <UInput v-model="state.email" />
-      </UFormField>
-      <UFormField label="Password" name="password">
-        <UInput v-model="state.password" type="password" />
-      </UFormField>
-      <UButton type="submit" :disabled="isFormInvalid">
-        {{ buttonLabel }}
-      </UButton>
-    </UForm>
+    <UCard class="ml-5 mr-5">
+      <UAuthForm
+          ref="authForm"
+          :schema="schema"
+          title="Login"
+          description="Enter your credentials to access your account. Alternatively just enter an email to send a magic link to login"
+          icon="i-lucide-user"
+          :fields="fields"
+          :submit="{
+        label: buttonLabel,
+        variant: 'subtle',
+        disabled: canSubmit,
+      }"
+          @submit="onSubmit"
+      />
+    </UCard>
   </div>
 </template>
