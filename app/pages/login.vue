@@ -6,7 +6,7 @@ const supabase = useSupabaseClient()
 const form = ref()
 
 const config = useRuntimeConfig()
-const baseUrl = config.public.siteUrl
+const baseUrl = config.public.baseUrl
 
 const signInWithOtp = async (email: string) => {
   const redirectUrl = `${baseUrl}/confirm`
