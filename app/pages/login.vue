@@ -5,11 +5,16 @@ import type { FormSubmitEvent } from '@nuxt/ui'
 const supabase = useSupabaseClient()
 const form = ref()
 
+const config = useRuntimeConfig()
+const baseUrl = config.public.siteUrl
+
 const signInWithOtp = async (email: string) => {
+  const redirectUrl = `${baseUrl}/confirm`
+
   const { error } = await supabase.auth.signInWithOtp({
     email: email,
     options: {
-      emailRedirectTo: '/confirm',
+      emailRedirectTo: redirectUrl,
     }
   })
   if (error) console.log(error)

@@ -19,4 +19,10 @@ export default defineNuxtConfig({
       tailwindcss()
     ],
   },
+  runtimeConfig: {
+    public: {
+      // Get a hold of the deployment URL from Vercel (fallback to localhost 3000)
+      baseUrl: process.env.VERCEL_URL || 'http://localhost:3000'
+    }
+  },
 })
