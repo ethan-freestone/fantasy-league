@@ -40,7 +40,7 @@ export default defineNuxtConfig({
           {
             // FIXME would be preferable to handle this with tasks, migrate when possible
             path: "/api/_test_chron",
-            schedule: "* * * * *",
+            schedule: "0 0 * * *",
           }
         ],
       },
