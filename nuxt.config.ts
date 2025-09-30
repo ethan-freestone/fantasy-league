@@ -11,6 +11,7 @@ export default defineNuxtConfig({
     '@nuxt/test-utils',
     '@nuxt/ui',
     '@nuxt/fonts',
+    '@nuxtjs/supabase',
   ],
   css: ['~/assets/css/main.css'],
   vite: {
