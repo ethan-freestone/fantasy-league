@@ -25,4 +25,13 @@ export default defineNuxtConfig({
       baseUrl: process.env.NUXT_PUBLIC_BASE_URL || 'http://localhost:3000'
     }
   },
+  nitro: {
+    experimental: {
+      tasks: true
+    },
+    scheduledTasks: {
+      // Run `test` task every minute
+      '* * * * *': ['test']
+    }
+  }
 })
