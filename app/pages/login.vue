@@ -39,7 +39,7 @@ const fields: AuthFormField[] = [
 
 const schema = v.object({
   email: v.pipe(v.string(), v.email('Invalid email')),
-  password: v.pipe(v.string()),
+  password: v.optional(v.string()),
 })
 
 type Schema = v.InferOutput<typeof schema>
