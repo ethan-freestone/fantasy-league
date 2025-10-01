@@ -9,7 +9,7 @@ const config = useRuntimeConfig()
 const redirectUrl = computed(() => `${config.public.baseUrl}/confirm`)
 
 
-const signInWithOtp = async (email: string) => {
+const signInWithOtp = computed(() => async (email: string) => {
   const { error } = await supabase.auth.signInWithOtp({
     email: email,
     options: {
@@ -17,7 +17,7 @@ const signInWithOtp = async (email: string) => {
     }
   })
   if (error) console.log(error)
-}
+})
 
 const fields: AuthFormField[] = [
   {
@@ -56,10 +56,10 @@ const canSubmit = computed((): boolean => {
 });
 
 const toast = useToast()
-async function onSubmit(event: FormSubmitEvent<Schema>) {
+const onSubmit = computed(() => async (event: FormSubmitEvent<Schema>) => {
   toast.add({ title: 'Success', description: 'The form has been submitted.', color: 'success' })
   signInWithOtp(event.data.email)
-}
+})
 </script>
 
 <template>
