@@ -12,8 +12,6 @@ const redirectUrl = config.public.baseUrl === 'http://localhost:3000' ?
   `https://${config.public.baseUrl}/confirm`
 
 const signInWithOtp = async (email: string) => {
-  const redirectUrl = `${config.public.baseUrl}/confirm`
-
   const { error } = await supabase.auth.signInWithOtp({
     email: email,
     options: {
