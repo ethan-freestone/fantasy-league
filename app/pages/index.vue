@@ -1,9 +1,6 @@
 <script setup lang="ts">
 import { h, resolveComponent } from 'vue'
 import type { TableColumn } from '@nuxt/ui'
-
-const UBadge = resolveComponent('UBadge')
-
 type Player = {
   id: string
   player: string
@@ -13,45 +10,33 @@ type Player = {
   renegadity: number
 }
 
+const GamePlayerStatsChart = resolveComponent('GamePlayerStatsChart')
+const UContainer = resolveComponent('UContainer')
+
 const columns: TableColumn<Player>[] = [
   {
     accessorKey: 'name',
     header: 'Player'
   },
   {
-    accessorKey: 'stamina',
-    header: () => h('div', { class: 'text-right' }, 'Stamina'),
-    cell: ({ row }) => {
-      const price = Number.parseFloat(row.getValue('stamina'))
-
-      const formatted = new Intl.NumberFormat('en-US', {
-      }).format(price)
-
-      return h('div', { class: 'text-right font-medium' }, formatted)
-    }
-  },
-  {
-    accessorKey: 'sticktoitiveness',
-    header: () => h('div', { class: 'text-right' }, 'Stick-to-itiveness'),
-    cell: ({ row }) => {
-      const price = Number.parseFloat(row.getValue('sticktoitiveness'))
-
-      const formatted = new Intl.NumberFormat('en-US', {
-      }).format(price)
-
-      return h('div', { class: 'text-right font-medium' }, formatted)
-    }
-  },
-  {
-    accessorKey: 'renegadity',
-    header: () => h('div', { class: 'text-right' }, 'Renegadity'),
-    cell: ({ row }) => {
-      const price = Number.parseFloat(row.getValue('renegadity'))
-
-      const formatted = new Intl.NumberFormat('en-US', {
-      }).format(price)
-
-      return h('div', { class: 'text-right font-medium' }, formatted)
+    accessorKey: 'player',
+    header: "Stats",
+    cell: ({ row: { original: player } }) => {
+      return h(
+        'div',
+        {
+          class: 'h-12 w-12'
+        },
+        [
+          h(
+            GamePlayerStatsChart,
+            {
+              class: 'w-full h-full',
+              player
+            }
+          )
+        ]
+      )
     }
   },
   {
@@ -67,7 +52,7 @@ const columns: TableColumn<Player>[] = [
 
       return h('div', { class: 'text-right font-medium' }, formatted)
     }
-  }  
+  },
 ]
 
 const supabase = useSupabaseClient()
@@ -80,7 +65,6 @@ async function getPlayers() {
 }
 
 onMounted(() => { getPlayers() })
-
 </script>
 
 <template>

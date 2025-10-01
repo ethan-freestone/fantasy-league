@@ -12,12 +12,17 @@ export default defineNuxtConfig({
     '@nuxt/ui',
     '@nuxt/fonts',
     '@nuxtjs/supabase',
+    'nuxt-echarts'
   ],
   css: ['~/assets/css/main.css'],
   vite: {
     plugins: [
       tailwindcss()
     ],
+  },
+  echarts: {
+    charts: ['BarChart'],
+    components: ['DatasetComponent', 'GridComponent', 'TooltipComponent'],
   },
   runtimeConfig: {
     public: {
