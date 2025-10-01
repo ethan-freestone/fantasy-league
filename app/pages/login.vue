@@ -6,10 +6,12 @@ const supabase = useSupabaseClient()
 const authForm = useTemplateRef('authForm');
 
 const config = useRuntimeConfig()
-const redirectUrl = computed(() => `${config.public.baseUrl}/confirm`)
 
+const redirectUrl = config.public.baseUrl === 'http://localhost:3000' ?
+    `${config.public.baseUrl}/confirm` :
+    `https://${config.public.baseUrl}/confirm`
 
-const signInWithOtp = computed(() => async (email: string) => {
+const signInWithOtp = async (email: string) => {
   const { error } = await supabase.auth.signInWithOtp({
     email: email,
     options: {
@@ -17,7 +19,7 @@ const signInWithOtp = computed(() => async (email: string) => {
     }
   })
   if (error) console.log(error)
-})
+}
 
 const fields: AuthFormField[] = [
   {
@@ -56,15 +58,15 @@ const canSubmit = computed((): boolean => {
 });
 
 const toast = useToast()
-const onSubmit = computed(() => async (event: FormSubmitEvent<Schema>) => {
+const onSubmit = async (event: FormSubmitEvent<Schema>) => {
   toast.add({ title: 'Success', description: 'The form has been submitted.', color: 'success' })
-  signInWithOtp(event.data.email)
-})
+  await signInWithOtp(event.data.email)
+}
 </script>
 
 <template>
   <div class="h-screen flex items-center justify-center">
-    {/* FIXME DO NOT KEEP THESE ON THE LOGIN PAGE, OBVS */}
+    <!-- FIXME DO NOT KEEP THESE ON THE LOGIN PAGE, OBVS -->
     <UPageCard class="mt-3" title="Env vars">
 		<UPageList>
 			<div key="vercelEnv">
