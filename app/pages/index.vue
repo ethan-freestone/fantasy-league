@@ -125,7 +125,7 @@ onMounted(() => { getPlayers() })
     <UPageCard class="mt-3" title="Possible players">
       <UContainer class="h-100 overflow-auto">
         <UPageList divide>
-		  <UTable sticky :data="players" :columns="columns" class="flex-1" />
+		  <UTable :data="players" :columns="columns" class="flex-1" />
         </UPageList>
       </UContainer>
     </UPageCard>
