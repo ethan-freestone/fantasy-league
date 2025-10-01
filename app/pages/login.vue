@@ -64,12 +64,22 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
 
 <template>
   <div class="h-screen flex items-center justify-center">
-    // FIXME DO NOT KEEP THESE ON THE LOGIN PAGE, OBVS
+    {/* FIXME DO NOT KEEP THESE ON THE LOGIN PAGE, OBVS */}
     <UPageCard class="mt-3" title="Env vars">
-		  vercelEnv: {{ config.public.vercelEnv }}
-      vercelUrl: {{ config.public.vercelUrl }}
-      vercelBranchUrl: {{ config.public.vercelBranchUrl }}
-      baseUrl: {{ config.public.baseUrl }}
+		<UPageList>
+			<div key="vercelEnv">
+				vercelEnv: {{ config.public.vercelEnv }}
+		    </div>
+			<div key="vercelUrl">
+      			vercelUrl: {{ config.public.vercelUrl }}
+		    </div>
+			<div key="vercelBranchUrl">
+      			vercelBranchUrl: {{ config.public.vercelBranchUrl }}
+		    </div>
+			<div key="baseUrl">
+				baseUrl: {{ config.public.baseUrl }}
+		    </div>
+		</UPageList>
     </UPageCard>
     <UCard class="ml-5 mr-5">
       <UAuthForm
