@@ -6,7 +6,7 @@ const supabase = useSupabaseClient()
 const authForm = useTemplateRef('authForm');
 
 const config = useRuntimeConfig()
-const redirectUrl = reactive(`${config.public.baseUrl}/confirm`)
+const redirectUrl = computed(() => `${config.public.baseUrl}/confirm`)
 
 
 const signInWithOtp = async (email: string) => {
