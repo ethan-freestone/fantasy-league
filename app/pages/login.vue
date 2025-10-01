@@ -7,6 +7,10 @@ const authForm = useTemplateRef('authForm');
 
 const config = useRuntimeConfig()
 
+const redirectUrl = config.public.baseUrl === 'http://localhost:3000' ?
+  `${config.public.baseUrl}/confirm` :
+  `https://${config.public.baseUrl}/confirm`
+
 const signInWithOtp = async (email: string) => {
   const redirectUrl = `${config.public.baseUrl}/confirm`
 
@@ -56,9 +60,9 @@ const canSubmit = computed((): boolean => {
 });
 
 const toast = useToast()
-async function onSubmit(event: FormSubmitEvent<Schema>) {
+const onSubmit = async (event: FormSubmitEvent<Schema>) => {
   toast.add({ title: 'Success', description: 'The form has been submitted.', color: 'success' })
-  signInWithOtp(event.data.email)
+  await signInWithOtp(event.data.email)
 }
 </script>
 
