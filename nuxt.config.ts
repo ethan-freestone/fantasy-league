@@ -26,7 +26,7 @@ export default defineNuxtConfig({
       vercelUrl: process.env.NUXT_ENV_VERCEL_URL,
       vercelBranchUrl: process.env.NUXT_ENV_VERCEL_BRANCH_URL,
       // Get a hold of the deployment URL from Vercel (fallback to localhost 3000)
-      baseUrl: (process.env.NUXT_ENV_VERCEL_ENV === 'preview' ?  process.env.NUXT_ENV_VERCEL_BRANCH_URL : process.env.NUXT_ENV_VERCEL_URL) || 'http://localhost:3000'
+      baseUrl: (process.env.NUXT_ENV_VERCEL_ENV === 'preview' ?  process.env.NUXT_ENV_VERCEL_BRANCH_URL : process.env.NUXT_ENV_VERCEL_PROJECT_PRODUCTION_URL) || 'http://localhost:3000'
     }
   },
   nitro: {
