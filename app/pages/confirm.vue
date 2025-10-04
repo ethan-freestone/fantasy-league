@@ -2,7 +2,6 @@
 const user = useSupabaseUser()
 
 watch(user, () => {
-  console.log("WHAT IS USER: %o", user)
   if (user.value) {
     // Redirect to protected page
     return navigateTo('/')
