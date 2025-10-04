@@ -1,7 +1,7 @@
 import { serverSupabaseClient } from "#supabase/server";
 
-import shuffle from 'lodash/shuffle';
-import chunk from 'lodash/chunk';
+import shuffle from 'lodash/shuffle.js';
+import chunk from 'lodash/chunk.js';
 
 export default defineEventHandler(async (event) => {
   console.warn("Running match up API");
