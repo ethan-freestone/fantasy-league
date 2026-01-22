@@ -8,8 +8,8 @@ const authForm = useTemplateRef('authForm');
 const config = useRuntimeConfig()
 
 const redirectUrl = config.public.baseUrl === 'http://localhost:3000' ?
-  `${config.public.baseUrl}/confirm` :
-  `https://${config.public.baseUrl}/confirm`
+    `${config.public.baseUrl}/confirm` :
+    `https://${config.public.baseUrl}/confirm`
 
 console.log("WHAT IS REDIRECT URL?: %o", redirectUrl)
 
@@ -68,6 +68,23 @@ const onSubmit = async (event: FormSubmitEvent<Schema>) => {
 
 <template>
   <div class="h-screen flex items-center justify-center">
+    <!-- FIXME DO NOT KEEP THESE ON THE LOGIN PAGE, OBVS -->
+    <UPageCard class="mt-3" title="Env vars">
+		<UPageList>
+			<div key="vercelEnv">
+				vercelEnv: {{ config.public.vercelEnv }}
+		    </div>
+			<div key="vercelUrl">
+      			vercelUrl: {{ config.public.vercelUrl }}
+		    </div>
+			<div key="vercelBranchUrl">
+      			vercelBranchUrl: {{ config.public.vercelBranchUrl }}
+		    </div>
+			<div key="baseUrl">
+				baseUrl: {{ config.public.baseUrl }}
+		    </div>
+		</UPageList>
+    </UPageCard>
     <UCard class="ml-5 mr-5">
       <UAuthForm
           ref="authForm"

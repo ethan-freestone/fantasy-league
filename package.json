@@ -17,14 +17,17 @@
     "@nuxt/ui": "^4.0.0",
     "@nuxtjs/supabase": "^2.0.0",
     "@tailwindcss/vite": "^4.1.13",
+    "echarts": "^6.0.0",
     "eslint": "^9.36.0",
     "jwt-decode": "^4.0.0",
     "lodash": "^4.17.21",
     "nuxt": "^4.1.2",
+    "nuxt-echarts": "^1.0.0",
     "tailwindcss": "^4.1.13",
     "typescript": "^5.9.2",
     "valibot": "^1.1.0",
     "vue": "^3.5.22",
+    "vue-echarts": "^8.0.0",
     "vue-router": "^4.5.1"
   },
   "devDependencies": {
